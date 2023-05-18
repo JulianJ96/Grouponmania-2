@@ -7,7 +7,8 @@ import cors from 'cors';
 import sequelize from './config/db.config2.js';
 
 const app = express();
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 
 
@@ -30,14 +31,17 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use('/', express.static(path.join(__dirname, 'static')));
+app.use('', express.static(path.join(__dirname, 'images')));
+app.use(cors());
 
 
 
 // Routes
-import userRouters from './routes/user';
+import userRouters from "./routes/user.js";
 
 
-
+import { fileURLToPath } from 'url';
 
 app.use('/api/auth', userRouters);
 
