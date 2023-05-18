@@ -4,9 +4,11 @@ import dotenv from 'dotenv';
 import mysql from 'mysql';
 import sql from 'mssql';
 import cors from 'cors';
-import sequelize from '../backend/config/db.config2.mjs';
+import sequelize from './config/db.config2.js';
 
 const app = express();
+
+
 
 
 dotenv.config();
@@ -26,11 +28,17 @@ app.use((req, res, next) => {
     next();
 });
 
-
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 
 
 // Routes
+import userRouters from './routes/user';
 
+
+
+
+app.use('/api/auth', userRouters);
 
 export default app;
